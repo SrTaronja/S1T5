@@ -24,7 +24,15 @@ public class MainT5N101 {
 				inputPath = argumento.substring(3,argumento.length());
 			}
 		}
+		/////// ----->
 		System.out.println(inputPath);
+		// chequear que realmente hayan enviado los argumentos, y si no fuera el caso, solicitar que los introduzcan
+		if (inputPath == null) {
+			// pdte.
+		}
+		GestionarArchivos.ListarDirectorioConsola(inputPath);
+		/////// <-----
+		
 	}
 }
 
