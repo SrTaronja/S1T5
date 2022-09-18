@@ -9,7 +9,7 @@ public class GestionArchivos {
 
 	public static void ListarDirectorioConsola(String path) {
 
-		File file = new File(path);
+		File file = new File(path); //objeto archivo de java
 		if (!file.exists()) {
 			System.out.println("La ruta" + file.getAbsolutePath() + " no existe");
 		} else {

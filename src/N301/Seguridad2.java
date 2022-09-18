@@ -25,18 +25,18 @@ public class Seguridad2 {
 				// Crear stream de bytes del archivo a encriptar
 				FileInputStream fis = new FileInputStream(ficheroE);
 				// Generar clave a partir del password
-				byte[] key = password.getBytes("UTF-8");
-				MessageDigest sha = MessageDigest.getInstance("SHA-1"); //160 bit digest
-				key = sha.digest(key);
-				key = Arrays.copyOf(key, 16);  //solo los primeros 128 bits (16 bytes x 8 bits) 
+				byte[] key = password.getBytes("UTF-8"); //string password lo paso a stream con la tabla de codificacion UTF-8.
+				MessageDigest sha = MessageDigest.getInstance("SHA-1"); //creo un objeto creadorDeHash sha
+				key = sha.digest(key); //calcular el hash de la clave en formato array de bytes (stream)
+				key = Arrays.copyOf(key, 16);  //solo los primeros 128 bits del hash (16 bytes x 8 bits) 
 				SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
 				// Crear cifrador e introducir la key en él
 				Cipher cifrador = Cipher.getInstance("AES/ECB/PKCS5Padding");
 				cifrador.init(Cipher.ENCRYPT_MODE, secretKeySpec);
 				// Leer el fichero y cifrar el contenido
 				byte[] lecturaBytes = fis.readAllBytes();
-				byte[] mensajeCifrado = cifrador.doFinal(lecturaBytes);
 				fis.close();
+				byte[] mensajeCifrado = cifrador.doFinal(lecturaBytes);
 				// Guardar el contenido del fichero cifrado en un nuevo fichero
 				FileOutputStream fos = new FileOutputStream(ficheroS, false);
 				fos.write(mensajeCifrado);
